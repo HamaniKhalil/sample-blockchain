@@ -1,7 +1,6 @@
-import data.Block
-import data.Ledger
-import data.Transaction
-import data.TransactionArray
+import data.models.Block
+import data.models.Ledger
+import data.models.Transaction
 
 fun main(args: Array<String>) {
     println("+-------------------------------------------------------------------------------------------------------------------------------+")

@@ -1,4 +1,6 @@
-package data
+package data.models
+
+import data.types.TransactionArray
 
 class Ledger {
 
