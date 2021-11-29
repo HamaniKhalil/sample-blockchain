@@ -1,4 +1,4 @@
-package data
+package data.types
 
 interface Miner {
 

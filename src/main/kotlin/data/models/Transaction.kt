@@ -1,4 +1,4 @@
-package data
+package data.models
 
 import com.google.gson.Gson
 

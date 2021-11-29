@@ -1,10 +1,13 @@
-package data
+package data.models
 
 import com.google.gson.GsonBuilder
 import config.crypto.HASH_DIFFICULTY
 import config.crypto.HASH_SIZE
 import config.crypto.exceptions.WrongDifficultySizeException
 import config.extensions.toHash
+import data.types.Hashable
+import data.types.Miner
+import data.types.TransactionArray
 import java.util.*
 import kotlin.jvm.Throws
 

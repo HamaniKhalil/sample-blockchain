@@ -1,4 +1,6 @@
-package data
+package data.types
+
+import data.models.Transaction
 
 class TransactionArray : ArrayList<Transaction>() {
 
