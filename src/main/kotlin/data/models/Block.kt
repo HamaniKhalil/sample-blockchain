@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder
 import config.crypto.HASH_DIFFICULTY
 import config.crypto.HASH_SIZE
 import config.crypto.exceptions.WrongDifficultySizeException
-import config.extensions.toHash
+import config.extensions.toHashString
 import data.types.Hashable
 import data.types.Miner
 import data.types.TransactionArray
@@ -21,7 +21,7 @@ class Block : Hashable,
     var hash: String = calculateHash()
 
     override fun calculateHash(): String =
-        "$transactions$timestamp$nounce$previousHash".toHash()
+        "$transactions$timestamp$nounce$previousHash".toHashString()
 
     @Throws(WrongDifficultySizeException::class)
     override fun mine() {
