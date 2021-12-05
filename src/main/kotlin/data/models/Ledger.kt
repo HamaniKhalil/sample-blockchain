@@ -25,8 +25,6 @@ class Ledger : Verifiable {
     }
 
     fun addBlockWithReward(address: PublicKey) {
-        addBlock()
-
         addTransaction(
             Transaction(
                 null,
@@ -34,6 +32,8 @@ class Ledger : Verifiable {
                 MINING_REWARD
             )
         )
+
+        addBlock()
     }
 
     fun addTransaction(transaction: Transaction) {

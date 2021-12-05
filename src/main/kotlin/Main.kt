@@ -66,7 +66,6 @@ fun main(args: Array<String>) {
     println("|\t########## Added ##########\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
 
     ledger.addBlockWithReward(wallets[4].publicKey)
-    ledger.addBlock()
 
     ledger.getBalanceForAddress(wallets[0].publicKey)
     ledger.getBalanceForAddress(wallets[1].publicKey)
