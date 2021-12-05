@@ -5,14 +5,19 @@ import config.crypto.HASH_DIFFICULTY
 import config.crypto.HASH_SIZE
 import config.crypto.exceptions.WrongDifficultySizeException
 import config.extensions.toHashString
+import config.extensions.toHexString
+import data.dto.BlockDto
+import data.dto.TransactionDto
 import data.types.Hashable
 import data.types.Miner
 import data.types.TransactionArray
+import data.types.Verifiable
 import java.util.*
 import kotlin.jvm.Throws
 
 class Block : Hashable,
-    Miner {
+    Miner,
+    Verifiable {
 
     val transactions: TransactionArray = TransactionArray()
     private val timestamp: Date = Date()
@@ -25,24 +30,50 @@ class Block : Hashable,
 
     @Throws(WrongDifficultySizeException::class)
     override fun mine() {
-        if(HASH_DIFFICULTY.isEmpty() || HASH_DIFFICULTY.length > HASH_SIZE) throw WrongDifficultySizeException()
+        if (HASH_DIFFICULTY.isEmpty() || HASH_DIFFICULTY.length > HASH_SIZE) throw WrongDifficultySizeException()
 
-        println("|\tBlock mining started...\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
+        println("|\tBlock mining started...\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t|")
         while (!hash.contains(HASH_DIFFICULTY)) {
             nounce = (Math.random() * 10 * HASH_DIFFICULTY.length).toInt()
             hash = calculateHash()
         }
 
-        println("|\tBlock have been mined, the resulting hash is : $hash\t\t\t\t|")
+        println("|\tBlock have been mined, the resulting hash is : $hash\t\t\t\t\t\t\t\t\t\t|")
     }
+
+    override fun isValid(): Boolean {
+        transactions.forEach { transaction ->
+            if (!transaction.isValid()) return false
+        }
+        return true
+    }
+
 
     override fun toString(): String =
         GsonBuilder()
             .setPrettyPrinting()
             .create()
-            .toJson(this)
+            .toJson(
+                BlockDto(
+                    transactions.map { transaction ->
+                        TransactionDto(
+                            transaction.fromAddress?.toHexString() ?: "",
+                            transaction.toAddress.toHexString(),
+                            transaction.amount
+                        )
+                    } as ArrayList<TransactionDto>,
+                    timestamp,
+                    nounce,
+                    previousHash,
+                    hash
+                )
+            )
 
     companion object {
-        val GENESIS = Block()
+        val GENESIS = Block().apply {
+            transactions.clear()
+            transactions.addAll(TransactionArray.getGenesis())
+            hash = calculateHash()
+        }
     }
 }

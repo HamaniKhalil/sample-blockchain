@@ -13,4 +13,4 @@ val HASH_SIZE: Int = when(MD.algorithm) {
     else -> 32
 }
 
-const val HASH_DIFFICULTY = "a0"
+const val HASH_DIFFICULTY = "00"

@@ -2,9 +2,6 @@ package config.extensions
 
 import config.crypto.MD
 import java.math.BigInteger
-import java.security.KeyFactory
-import java.security.PublicKey
-import java.security.spec.X509EncodedKeySpec
 
 fun String.toHashString(): String {
     MD.update(toByteArray())
